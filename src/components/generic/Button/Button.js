@@ -34,8 +34,8 @@ class Button extends Component {
 Button.propTypes = {
   onClick: PropTypes.func,
   color: PropTypes.string,
-  width: PropTypes.string,
-  height: PropTypes.string,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   className: PropTypes.string,
   disabled: PropTypes.bool,
   selected: PropTypes.bool,

@@ -42,7 +42,7 @@ NeonButton.propTypes = {
     PropTypes.number
   ]),
   className: PropTypes.string,
-  disabled: PropTypes.bool,
+  disabled: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 }
 
 NeonButton.defaultProps = {

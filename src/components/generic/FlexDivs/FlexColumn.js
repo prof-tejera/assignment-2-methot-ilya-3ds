@@ -25,7 +25,6 @@ class FlexColumn extends Component {
           flexDirection: "column",
           margin: this.props.margin,
           padding: this.props.padding,
-          justifyContent: "center",
           alignItems: "center",
           alignContent: "center",
           boxSizing: "border-box",
