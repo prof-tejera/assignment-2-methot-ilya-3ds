@@ -1,7 +1,6 @@
 import React, {useContext, useState, useEffect, useRef} from "react";
 import FlexRow from "../generic/FlexDivs/FlexRow";
 import Background from "../generic/Background/Background";
-import Incrementer from "../generic/Incrementer/Incrementer";
 import NeonParagraph from "../generic/Paragraph/NeonParagraph";
 import NeonButton from "../generic/Button/NeonButtons";
 import { TimerContext } from "../Context/TimersContext";
@@ -12,8 +11,6 @@ const Stopwatch = props => {
   const { minutes, setMinutes } = useContext(TimerContext);
   const { hours, setHours } = useContext(TimerContext);
   const { totalSeconds, setTotalSeconds } = useContext(TimerContext);
-  const { initialTime, setInitialTime } = useContext(TimerContext);
-  const { timerID, setTimerID } = useContext(TimerContext);
      
   const [isActive, setIsActive] = useState(false);
 
@@ -26,7 +23,6 @@ const Stopwatch = props => {
       setTotalSeconds(seconds)
       convertSecondsToTimer(seconds);
     }, 10);
-    setTimerID(timer);
 
     return () => {
       clearInterval(timer.current);
