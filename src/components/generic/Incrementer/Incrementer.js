@@ -1,87 +1,94 @@
-import { Component } from "react";
+import { useState, useCallback } from "react";
 import Button from "../Button/Button";
 import FlexColumn from "../FlexDivs/FlexColumn";
 import FlexRow from "../FlexDivs/FlexRow";
 import "./Incrementer.css";
 import PropTypes from "prop-types";
 import Input from "../Input/Input";
+import "../Input/Input.css"
 
-class Incrementer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      variable: 0,
-    };
-  }
+const Incrementer = props => {
+  const [variable, setVariable] = useState(0);
 
-  render() {
-    const changeTime = (direction, maxMin) => {
-      if (direction === "increment") {
-        if (this.state.variable < maxMin) {
-          this.setState({ variable: this.state.variable + 1 });
-        }
-      } else {
-        if (this.state.variable > maxMin) {
-          this.setState({ variable: this.state.variable - 1 });
-        }
+  const changeTime = (direction, maxMin) => {
+    if (direction === "increment") {
+      if (variable < maxMin) {
+        props.onChange(variable + 1);
+        console.log(variable);
       }
-    };
-
-    // Add leading zeros
-    // src: https://www.codegrepper.com/code-examples/javascript/react+js+add+leading+zeros
-
-    function padLeadingZeros(num, size) {
-      var s = num + "";
-      while (s.length < size) s = "0" + s;
-      return s;
+    } else {
+      if (variable > maxMin) {
+        setVariable(variable - 1);
+      }
     }
-    // examples:
-    // padLeadingZeros(57, 3);// "057"
-    // padLeadingZeros(57, 4); //"0057"
+  };
 
-    return (
-      <>
-        <FlexColumn
-          padding="10px"
-          width="auto"
-          height="auto"
-          centered="true"
-          spaceEvenly="true"
-          margin={this.props.margin}
-        >
-          <FlexRow width="auto" height="auto" spaceEvenly="true" centered="true">
-            <Button
-              onClick={() => {
-                changeTime("increment", this.props.max);
-              }}
-              className="smallButton"
-              width={this.props.width / 2}
-              height={this.props.height / 2}
-            >
-              ^
-            </Button>
-          </FlexRow>
-          <FlexRow width="auto" height="auto" centered="true">
-            <Input
-              width={this.props.width}
-              height={this.props.height}
-            >
-            </Input>
-          </FlexRow>
-          <FlexRow width="auto" height="auto" spaceEvenly="true" centered="true">
-            <Button
-              onClick={() => changeTime("decrease", this.props.min)}
-              className="smallButton"
-              width={this.props.width / 2}
-              height={this.props.height / 2}
-            >
-              v
-            </Button>
-          </FlexRow>
-        </FlexColumn>
-      </>
-    );
+  // Add leading zeros
+  // src: https://www.codegrepper.com/code-examples/javascript/react+js+add+leading+zeros
+
+  function padLeadingZeros(num, size) {
+    var s = num + "";
+    while (s.length < size) s = "0" + s;
+    return s;
   }
+  // examples:
+  // padLeadingZeros(57, 3);// "057"
+  // padLeadingZeros(57, 4); //"0057"
+
+  return (
+    <>
+      <FlexColumn
+        padding="10px"
+        width="auto"
+        height="auto"
+        centered="true"
+        spaceEvenly="true"
+        margin={props.margin}
+      >
+        <FlexRow width="auto" height="auto" spaceEvenly="true" centered="true">
+          <Button
+            onClick={() => {
+              changeTime("increment", props.max);
+            }}
+            className="smallButton"
+            width={props.width / 2}
+            height={props.height / 2}
+          >
+            ^
+          </Button>
+        </FlexRow>
+        <FlexRow width="auto" height="auto" centered="true">
+          <input
+            style={
+              {
+                boxSizing: "border-box",
+                textAlign: "center",
+                width: props.width,
+                height: props.height,
+                cursor: "auto",
+                borderRadius: "30px",
+                fontSize: "auto"
+              }
+            }
+            value={props.value}
+            onChange={e => props.onChange}
+            className="display"
+          >
+          </input>
+      </FlexRow>
+      <FlexRow width="auto" height="auto" spaceEvenly="true" centered="true">
+        <Button
+          onClick={() => changeTime("decrease", props.min)}
+          className="smallButton"
+          width={props.width / 2}
+          height={props.height / 2}
+        >
+          v
+        </Button>
+      </FlexRow>
+    </FlexColumn>
+    </>
+  );
 }
 
 Incrementer.propTypes = {
@@ -94,6 +101,7 @@ Incrementer.propTypes = {
   scale: PropTypes.string,
   margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   padding: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onChange: PropTypes.func
 };
 
 Incrementer.defaultProps = {
