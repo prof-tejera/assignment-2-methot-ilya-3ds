@@ -1,3 +1,9 @@
+##
+
+My page can be found here: 
+
+http://prof-tejera.github.io/assignment-2-methot-ilya-3ds
+
 # Objective
 In this assignment, we will start using the foundation we lay in A1 and make our timers fully functional. Each timer will function as described in A1 and the user flow should be the following:
 
