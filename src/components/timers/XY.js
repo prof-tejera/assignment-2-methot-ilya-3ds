@@ -91,18 +91,15 @@ const XY = (props) => {
   };
 
   const stop = () => {
-    setShowUI(false);
     clearInterval(timer.current);
   };
 
   const restart = () => {
-    setShowUI(false);
     clearInterval(timer.current);
     convertSecondsToTimer(initialTime);
   };
 
   const clear = () => {
-    setShowUI(false);
     clearInterval(timer.current);
     convertSecondsToTimer(0);
   };
