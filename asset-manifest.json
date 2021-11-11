@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/assignment-1-methot-ilya-3ds/static/css/main.fcffee1e.chunk.css",
+    "main.js": "/assignment-1-methot-ilya-3ds/static/js/main.9c027bf7.chunk.js",
+    "main.js.map": "/assignment-1-methot-ilya-3ds/static/js/main.9c027bf7.chunk.js.map",
+    "runtime-main.js": "/assignment-1-methot-ilya-3ds/static/js/runtime-main.b5560eb2.js",
+    "runtime-main.js.map": "/assignment-1-methot-ilya-3ds/static/js/runtime-main.b5560eb2.js.map",
+    "static/js/2.f8ada504.chunk.js": "/assignment-1-methot-ilya-3ds/static/js/2.f8ada504.chunk.js",
+    "static/js/2.f8ada504.chunk.js.map": "/assignment-1-methot-ilya-3ds/static/js/2.f8ada504.chunk.js.map",
+    "index.html": "/assignment-1-methot-ilya-3ds/index.html",
+    "static/css/main.fcffee1e.chunk.css.map": "/assignment-1-methot-ilya-3ds/static/css/main.fcffee1e.chunk.css.map",
+    "static/js/2.f8ada504.chunk.js.LICENSE.txt": "/assignment-1-methot-ilya-3ds/static/js/2.f8ada504.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b5560eb2.js",
+    "static/js/2.f8ada504.chunk.js",
+    "static/css/main.fcffee1e.chunk.css",
+    "static/js/main.9c027bf7.chunk.js"
+  ]
+}
