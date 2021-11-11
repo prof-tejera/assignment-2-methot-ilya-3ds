@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import Button from "../generic/Button/Button";
 import FlexColumn from "../generic/FlexDivs/FlexColumn";
 import FlexRow from "../generic/FlexDivs/FlexRow";
 import Background from "../generic/Background/Background";
@@ -7,6 +6,7 @@ import Incrementer from "../generic/Incrementer/Incrementer";
 import NeonParagraph from "../generic/Paragraph/NeonParagraph";
 import NeonButton from "../generic/Button/NeonButtons";
 import { TimerContext } from "../Context/TimersContext";
+import { MenuContext } from "../Context/MenuContext";
 
 const XY = (props) => {
   const { round, setRound } = useContext(TimerContext);
@@ -15,13 +15,26 @@ const XY = (props) => {
   const { hours, setHours } = useContext(TimerContext);
   const { totalSeconds, setTotalSeconds } = useContext(TimerContext);
   const { initialTime, setInitialTime } = useContext(TimerContext);
-  const { timerID, setTimerID } = useContext(TimerContext);
 
   const [isActive, setIsActive] = useState(false);
 
-  const [showUI, setShowUI] = useState(false);
+  const [setShowUI] = useState(false);
 
   let timer = useRef(null);
+
+  
+  const {setMenu} = useContext(MenuContext);
+  const {setXY} = useContext(MenuContext);
+  const [completed, setCompleted] = useState(false);
+
+  const toggleMenu = () => {
+    setXY(false);
+    setMenu(true);
+  }
+
+  const toggleCompleted = () => {
+    setCompleted(false);
+  }
 
   useEffect(() => {
     timer.current = setInterval(() => {
@@ -37,6 +50,7 @@ const XY = (props) => {
             setRound(currRound);
             convertSecondsToTimer(initialTime);
           } else {
+            setCompleted(true);
             stop();
           }
         }
@@ -95,7 +109,7 @@ const XY = (props) => {
 
   return (
     <>
-      <Background centered="true" width="300px" padding="20px">
+      {!completed && <Background centered="true" width="300px" padding="20px">
         <FlexRow height="25%" centered="true">
           <NeonParagraph color="#00C0F9" size="24px">
             XY
@@ -179,7 +193,22 @@ const XY = (props) => {
             Clear
           </NeonButton>
         </FlexRow>
-      </Background>
+      </Background>}
+      {completed && (
+        <Background centered="true" width="300px" padding="20px">
+          <NeonParagraph>Completed</NeonParagraph>
+          <FlexRow>
+            <FlexColumn>
+              <NeonParagraph>Return To Menu</NeonParagraph>
+              <NeonButton onClick={toggleMenu}>O</NeonButton>
+            </FlexColumn>
+            <FlexColumn>
+              <NeonParagraph>Set New XY Timer</NeonParagraph>
+              <NeonButton onClick={toggleCompleted}>O</NeonButton>
+            </FlexColumn>
+          </FlexRow>
+        </Background>
+      )}
     </>
   );
 };

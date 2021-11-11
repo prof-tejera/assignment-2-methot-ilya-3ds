@@ -1,22 +1,20 @@
-import { Component } from "react";
 import "./NeonParagraph.css"
 import PropTypes from 'prop-types';
 
-class NeonParagraph extends Component {
-  render() {
+const NeonParagraph = props => {
+
     return <p style={{
-        color: this.props.color,
-        textShadow: `0 0 10px ${this.props.color}`,
-        fontSize: this.props.size,
+        color: props.color,
+        textShadow: `0 0 10px ${props.color}`,
+        fontSize: props.size,
         className: "NeonParagraph",
-        height: this.props.height,
-        width: this.props.width,
+        height: props.height,
+        width: props.width,
         margin: "0px",
-        padding: this.props.padding,
+        padding: props.padding,
         boxSizing: "border-box"
-    }}>{this.props.children}</p>;
+    }}>{props.children}</p>;
   }
-}
 
 NeonParagraph.propTypes = {
   color: PropTypes.string,

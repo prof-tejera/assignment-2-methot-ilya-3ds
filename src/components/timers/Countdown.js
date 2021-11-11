@@ -6,18 +6,32 @@ import Incrementer from "../generic/Incrementer/Incrementer";
 import NeonParagraph from "../generic/Paragraph/NeonParagraph";
 import NeonButton from "../generic/Button/NeonButtons";
 import { TimerContext } from "../Context/TimersContext";
-
+import FlexColumn from "../generic/FlexDivs/FlexColumn";
+import { MenuContext } from "../Context/MenuContext";
 const Countdown = (props) => {
   const { seconds, setSeconds } = useContext(TimerContext);
   const { minutes, setMinutes } = useContext(TimerContext);
   const { hours, setHours } = useContext(TimerContext);
   const { totalSeconds, setTotalSeconds } = useContext(TimerContext);
   const { initialTime, setInitialTime } = useContext(TimerContext);
-  const { timerID, setTimerID } = useContext(TimerContext);
+  const {setTimerID } = useContext(TimerContext);
 
   const [isActive, setIsActive] = useState(false);
 
   const [showUI, setShowUI] = useState(false);
+
+  const {setMenu} = useContext(MenuContext);
+  const {setCountdown} = useContext(MenuContext);
+  const [completed, setCompleted] = useState(false);
+
+  const toggleMenu = () => {
+    setCountdown(false);
+    setMenu(true);
+  }
+
+  const toggleCompleted = () => {
+    setCompleted(false);
+  }
 
   let timer = useRef(null);
 
@@ -32,6 +46,7 @@ const Countdown = (props) => {
           console.log(totalSeconds);
         } else {
           setShowUI(false);
+          setCompleted(true);
           clearInterval(timer.current);
         }
       }
@@ -100,93 +115,120 @@ const Countdown = (props) => {
     // Convert all of the days, hours, minutes, and seconds into seconds so we can more easily process the data
 
     <>
-      <Background centered="true" width="300px" padding="20px">
-        <FlexRow height="25%" centered="true">
-          <NeonParagraph color="#00C0F9" size="24px">
-            Countdown
-          </NeonParagraph>
-        </FlexRow>
-        <FlexRow
-          height="25%"
-          padding="10px"
-          spaceEvenly="true"
-          centered="true"
-          width="100%"
-        >
-          <Incrementer
-            width="30px"
-            height="30px"
-            max="24"
-            min="0"
-            scale="h"
-            addZeros={2}
-            value={hours}
-            onChange={setHours}
-          />
-          <Incrementer
-            width="30px"
-            height="30px"
-            max="60"
-            min="0"
-            scale="m"
-            addZeros={2}
-            value={minutes}
-            onChange={setMinutes}
-          />
-          <Incrementer
-            width="30px"
-            height="30px"
-            max="60"
-            min="0"
-            scale="s"
-            addZeros={2}
-            value={seconds}
-            onChange={setSeconds}
-          />
-        </FlexRow>
-        <FlexRow padding="10px" width="100%" spaceEvenly="true" centered="true">
-          {!showUI && (
+      {!completed && (
+        <Background centered="true" width="300px" padding="20px">
+          <FlexRow height="25%" centered="true">
+            <NeonParagraph color="#00C0F9" size="24px">
+              Countdown
+            </NeonParagraph>
+          </FlexRow>
+          <FlexRow
+            height="25%"
+            padding="10px"
+            spaceEvenly="true"
+            centered="true"
+            width="100%"
+          >
+            <Incrementer
+              width="30px"
+              height="30px"
+              max="24"
+              min="0"
+              scale="h"
+              addZeros={2}
+              value={hours}
+              onChange={setHours}
+            />
+            <Incrementer
+              width="30px"
+              height="30px"
+              max="60"
+              min="0"
+              scale="m"
+              addZeros={2}
+              value={minutes}
+              onChange={setMinutes}
+            />
+            <Incrementer
+              width="30px"
+              height="30px"
+              max="60"
+              min="0"
+              scale="s"
+              addZeros={2}
+              value={seconds}
+              onChange={setSeconds}
+            />
+          </FlexRow>
+          <FlexRow
+            padding="10px"
+            width="100%"
+            spaceEvenly="true"
+            centered="true"
+          >
+            {!showUI && (
+              <NeonButton
+                className="StartButton"
+                onClick={start}
+                width="100%"
+                height="50px"
+              >
+                Start
+              </NeonButton>
+            )}
+            {showUI && (
+              <NeonButton
+                className="PauseButton"
+                onClick={stop}
+                width="30%"
+                height="50px"
+              >
+                Pause
+              </NeonButton>
+            )}
+            {showUI && (
+              <NeonButton
+                className="RestartButton"
+                onClick={restart}
+                width="20%"
+                height="50px"
+              >
+                &#8634;
+              </NeonButton>
+            )}
+          </FlexRow>
+          <FlexRow
+            padding="10px"
+            width="100%"
+            spaceEvenly="true"
+            centered="true"
+          >
             <NeonButton
-              className="StartButton"
-              onClick={start}
+              className="ClearButton"
+              onClick={clear}
               width="100%"
               height="50px"
             >
-              Start
+              Clear
             </NeonButton>
-          )}
-          {showUI && (
-            <NeonButton
-              className="PauseButton"
-              onClick={stop}
-              width="30%"
-              height="50px"
-            >
-              Pause
-            </NeonButton>
-          )}
-          {showUI && (
-            <NeonButton
-              className="RestartButton"
-              onClick={restart}
-              width="20%"
-              height="50px"
-            >
-              &#8634;
-            </NeonButton>
-          )}
-        </FlexRow>
-        <FlexRow padding="10px" width="100%" spaceEvenly="true" centered="true">
-          <NeonButton
-            className="ClearButton"
-            onClick={clear}
-            width="100%"
-            height="50px"
-          >
-            Clear
-          </NeonButton>
-        </FlexRow>
-      </Background>
+          </FlexRow>
+        </Background>
+      )}
+      {completed && (
+        <Background centered="true" width="300px" padding="20px">
+          <NeonParagraph>Completed</NeonParagraph>
+          <FlexRow>
+            <FlexColumn>
+              <NeonParagraph>Return To Menu</NeonParagraph>
+              <NeonButton onClick={toggleMenu}>O</NeonButton>
+            </FlexColumn>
+            <FlexColumn>
+              <NeonParagraph>Set New Countdown</NeonParagraph>
+              <NeonButton onClick={toggleCompleted}>O</NeonButton>
+            </FlexColumn>
+          </FlexRow>
+        </Background>
+      )}
     </>
   );
 };

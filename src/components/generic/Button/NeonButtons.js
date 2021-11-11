@@ -1,34 +1,31 @@
-import { Component } from "react";
+
 import "./NeonButtons.css"
 import PropTypes from 'prop-types';
 
-class NeonButton extends Component {
-  render() {
+const NeonButton = props => {
     return (
       <button
-        onClick={this.props.onClick}
+        onClick={props.onClick}
         style={
           {
             boxSizing: "border-box",
             textAlign: "center",
-            width: this.props.width,
-            height: this.props.height,
-            cursor: this.props.disabled && "auto",
+            width: props.width,
+            height: props.height,
+            cursor: props.disabled && "auto",
             borderRadius: "30px",
-            boxSizing: "border-box"
           }
         }
-        className={this.props.className}
-        disabled={this.props.disabled}
-        selected={this.props.selected}
+        className={props.className}
+        disabled={props.disabled}
+        selected={props.selected}
 
       >
-        {this.props.text}
-        {this.props.image}
-        {this.props.children}
+        {props.text}
+        {props.image}
+        {props.children}
       </button>
     )
-  }
 }
 
 NeonButton.propTypes = {

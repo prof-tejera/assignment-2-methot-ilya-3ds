@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 
-export const TimerContext = React.createContext();
+export const TimerContext = createContext();
 
 export const TimerProvider = (props) => {
 

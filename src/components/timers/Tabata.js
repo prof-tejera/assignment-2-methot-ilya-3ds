@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import Button from "../generic/Button/Button";
 import FlexColumn from "../generic/FlexDivs/FlexColumn";
 import FlexRow from "../generic/FlexDivs/FlexRow";
 import Background from "../generic/Background/Background";
@@ -7,9 +6,9 @@ import Incrementer from "../generic/Incrementer/Incrementer";
 import NeonParagraph from "../generic/Paragraph/NeonParagraph";
 import NeonButton from "../generic/Button/NeonButtons";
 import { TimerContext } from "../Context/TimersContext";
+import { MenuContext } from "../Context/MenuContext";
 
 const Tabata = (props) => {
-  const { currentState, setCurrentState } = useContext(TimerContext);
   const { work, setWork } = useContext(TimerContext);
   const { rest, setRest } = useContext(TimerContext);
   const { initialWork, setInitialWork } = useContext(TimerContext);
@@ -19,6 +18,19 @@ const Tabata = (props) => {
   const [isActive, setIsActive] = useState(false);
 
   let timer = useRef(null);
+
+  const {setMenu} = useContext(MenuContext);
+  const {setTabata} = useContext(MenuContext);
+  const [completed, setCompleted] = useState(false);
+
+  const toggleMenu = () => {
+    setTabata(false);
+    setMenu(true);
+  }
+
+  const toggleCompleted = () => {
+    setCompleted(false);
+  }
 
   useEffect(() => {
     timer.current = setInterval(() => {
@@ -38,6 +50,7 @@ const Tabata = (props) => {
           setRest(initialRest);
         }
         else {
+          setCompleted(true);
           stop();
         }
       }
@@ -76,7 +89,7 @@ const Tabata = (props) => {
 
   return (
     <>
-      <Background centered="true" height="500px" width="300px" padding="20px">
+      {!completed && <Background centered="true" height="500px" width="300px" padding="20px">
         <NeonParagraph padding="10px" height="10%" color="#00C0F9" size="36px">
           Tabata
         </NeonParagraph>
@@ -173,7 +186,22 @@ const Tabata = (props) => {
             </NeonButton>
           </FlexRow>
         </FlexRow>
-      </Background>
+      </Background>}
+      {completed && (
+        <Background centered="true" width="300px" padding="20px">
+          <NeonParagraph>Completed</NeonParagraph>
+          <FlexRow>
+            <FlexColumn>
+              <NeonParagraph>Return To Menu</NeonParagraph>
+              <NeonButton onClick={toggleMenu}>O</NeonButton>
+            </FlexColumn>
+            <FlexColumn>
+              <NeonParagraph>Set New Tabata</NeonParagraph>
+              <NeonButton onClick={toggleCompleted}>O</NeonButton>
+            </FlexColumn>
+          </FlexRow>
+        </Background>
+      )}
     </>
   );
 };

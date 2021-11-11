@@ -4,6 +4,8 @@ import Background from "../generic/Background/Background";
 import NeonParagraph from "../generic/Paragraph/NeonParagraph";
 import NeonButton from "../generic/Button/NeonButtons";
 import { TimerContext } from "../Context/TimersContext";
+import { MenuContext } from "../Context/MenuContext";
+import FlexColumn from "../generic/FlexDivs/FlexColumn";
 
 const Stopwatch = props => {
   const { milleseconds, setMilleseconds } = useContext(TimerContext);
@@ -15,6 +17,19 @@ const Stopwatch = props => {
   const [isActive, setIsActive] = useState(false);
 
   let timer = useRef(null);
+
+  const {setMenu} = useContext(MenuContext);
+  const {setStopwatch} = useContext(MenuContext);
+  const [completed, setCompleted] = useState(false);
+
+  const toggleMenu = () => {
+    setStopwatch(false);
+    setMenu(true);
+  }
+
+  const toggleCompleted = () => {
+    setCompleted(false);
+  }
 
   useEffect(() => {
     if(isActive) {
@@ -59,12 +74,13 @@ const Stopwatch = props => {
       setIsActive(false);
       clearInterval(timer.current);
       convertSecondsToTimer(0);
+      setCompleted(true);
     }
 
 
     return (
       <>
-        <Background centered="true" width="300px" padding="20px">
+        {!completed && <Background centered="true" width="300px" padding="20px">
           <FlexRow height="25%" centered="true">
           <NeonParagraph color="#00C0F9" size="24px">Stopwatch</NeonParagraph>
           </FlexRow>
@@ -79,7 +95,22 @@ const Stopwatch = props => {
             <NeonButton className="PauseButton" onClick={stop} width="30%" height="50px">Pause</NeonButton>
             <NeonButton className="RestartButton" onClick={restart} width="20%" height="50px">&#8634;</NeonButton>
           </FlexRow>
+        </Background>}
+        {completed && (
+        <Background centered="true" width="300px" padding="20px">
+          <NeonParagraph>Completed</NeonParagraph>
+          <FlexRow>
+            <FlexColumn>
+              <NeonParagraph>Return To Menu</NeonParagraph>
+              <NeonButton onClick={toggleMenu}>O</NeonButton>
+            </FlexColumn>
+            <FlexColumn>
+              <NeonParagraph>Set New Stopwatch</NeonParagraph>
+              <NeonButton onClick={toggleCompleted}>O</NeonButton>
+            </FlexColumn>
+          </FlexRow>
         </Background>
+      )}
       </>
     );
 }

@@ -1,4 +1,4 @@
-import { Component } from "react";
+
 import PropTypes from 'prop-types';
 const styles = {
   centered: {
@@ -12,30 +12,28 @@ const styles = {
   },
 };
 
-class FlexRow extends Component {
-  render() {
+const FlexRow = props => {
     return (
       <div
         style={{
           display: "flex",
-          backgroundColor: this.props.color,
-          width: this.props.width,
-          height: this.props.height,
+          backgroundColor: props.color,
+          width: props.width,
+          height: props.height,
           flexDirection: "row",
           flexWrap: "wrap",
-          margin: this.props.margin,
-          padding: this.props.padding,
+          margin: props.margin,
+          padding: props.padding,
           alignItems: "center",
           alignContent: "center",
           boxSizing: "border-box",
-          justifyContent: this.props.spaceEvenly ? styles.spaceEvenly.justifyContent : styles.centered.justifyContent
+          justifyContent: props.spaceEvenly ? styles.spaceEvenly.justifyContent : styles.centered.justifyContent
         }}
         className="Flex-Column"
       >
-        {this.props.children}
+        {props.children}
       </div>
     );
-  }
 }
 
 FlexRow.propTypes = {

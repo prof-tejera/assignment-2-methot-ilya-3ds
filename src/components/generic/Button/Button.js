@@ -1,34 +1,34 @@
-import { Component } from "react";
+
 import "./Button.css";
 import PropTypes from 'prop-types';
 
-class Button extends Component {
-  render() {
+const Button = props => {
+
     return (
       <button
-        onClick={this.props.onClick}
+        onClick={props.onClick}
         style={
           {
             boxSizing: "border-box",
             textAlign: "center",
-            backgroundColor: this.props.color,
-            width: this.props.width,
-            height: this.props.height,
-            cursor: this.props.disabled && "auto",
+            backgroundColor: props.color,
+            width: props.width,
+            height: props.height,
+            cursor: props.disabled && "auto",
             borderRadius: "30px",
             fontSize: "auto"
           }
         }
-        className={this.props.className}
-        disabled={this.props.disabled}
-        selected={this.props.selected}
+        className={props.className}
+        disabled={props.disabled}
+        selected={props.selected}
 
       >
-        {this.props.image}
-        {this.props.children}
+        {props.image}
+        {props.children}
       </button>
     )
-  }
+  
 }
 
 Button.propTypes = {

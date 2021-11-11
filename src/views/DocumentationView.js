@@ -8,7 +8,6 @@ import FlexColumn from "../components/generic/FlexDivs/FlexColumn.js"
 import FlexRow from "../components/generic/FlexDivs/FlexRow";
 import Incrementer from "../components/generic/Incrementer/Incrementer";
 import Input from "../components/generic/Input/Input";
-import Loading from "../components/generic/Loading";
 import NeonParagraph from "../components/generic/Paragraph/NeonParagraph";
 
 const Container = styled.div`

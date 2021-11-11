@@ -1,10 +1,8 @@
-import { useState, useCallback } from "react";
 import Button from "../Button/Button";
 import FlexColumn from "../FlexDivs/FlexColumn";
 import FlexRow from "../FlexDivs/FlexRow";
 import "./Incrementer.css";
-import PropTypes, { nominalTypeHack } from "prop-types";
-import Input from "../Input/Input";
+import PropTypes from "prop-types";
 import "../Input/Input.css";
 
 const Incrementer = (props) => {
